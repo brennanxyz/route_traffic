@@ -158,6 +158,10 @@ impl Service {
         }
     }
 
+    fn make_tags(&self) -> Vec<&'static str> {
+        vec![""]
+    }
+
     // on Result::Ok, returns path, and a boolean: true = created; false = got existing
     fn get_or_create_directory(path: PathBuf) -> Result<(PathBuf, bool), ServiceError> {
         let chkdir_output = Command::new("sh")
@@ -312,6 +316,7 @@ impl Service {
             .arg("compose")
             .arg("up")
             .arg("-d")
+            .args(&self.make_tags())
             .current_dir(path.to_string_lossy().to_string())
             .output()?;
 
