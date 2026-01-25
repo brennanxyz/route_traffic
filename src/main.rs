@@ -18,15 +18,6 @@ use tracing_subscriber::fmt::writer::MakeWriterExt;
 
 #[tokio::main]
 async fn main() {
-    // setup logging
-    let logfile = tracing_appender::rolling::hourly("./logs", "route_traffic.log");
-    let stdout = std::io::stdout.with_max_level(tracing::Level::INFO);
-    tracing_subscriber::fmt()
-        .pretty()
-        .with_writer(stdout.and(logfile))
-        .init();
-    event!(Level::INFO, "Launching...");
-
     let config = match Config::new() {
         Ok(c) => {
             event!(Level::INFO, "Loaded configuration info.");
@@ -38,6 +29,17 @@ async fn main() {
         }
     };
 
+    // setup logging
+    let logfile = tracing_appender::rolling::hourly(
+        config.logs_dir.to_string_lossy().to_string(),
+        "wraut.log",
+    );
+    let stdout = std::io::stdout.with_max_level(tracing::Level::INFO);
+    tracing_subscriber::fmt()
+        .pretty()
+        .with_writer(stdout.and(logfile))
+        .init();
+    event!(Level::INFO, "Launching...");
     let db_string = &config.db_url;
 
     // TODO: get or create

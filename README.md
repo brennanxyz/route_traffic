@@ -31,3 +31,6 @@ requirements:
 There will be some config you'll need to provide Wraut as
 a `.env` file (TODO: commit the `.env.sample` and a guide to
 selecting the appropriate values).
+
+## Cross-compiling
+`cargo zigbuild --release --target aarch64-unknown-linux-musl`

@@ -12,6 +12,7 @@ axum = { version = "0.8.7", features = [
 ] }
 dotenv = { version = "0.15.0" }
 futures = { version = "0.3.31" }
+openssl = { version = "0.10", features = ["vendored"] }
 serde = { version = "1.0.228" }
 serde_json = { version = "1.0.149" }
 serde_yaml = { version = "0.9.34" }
