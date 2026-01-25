@@ -34,3 +34,14 @@ selecting the appropriate values).
 
 ## Cross-compiling
 `cargo zigbuild --release --target aarch64-unknown-linux-musl`
+
+## TODO
+- [ ] Make a refresh button on each service
+- [ ] Make a delete button on each service
+  - [ ] Make a deletion event
+  - [ ] Make a deletion flow
+- [ ] Register a service with a GitHub action
+  - [ ] Test key
+  - [ ] Test action
+- [ ] Refactor error event logging on current `?;`s
+
