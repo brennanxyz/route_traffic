@@ -36,10 +36,13 @@ selecting the appropriate values).
 `cargo zigbuild --release --target aarch64-unknown-linux-musl`
 
 ## TODO
-- [ ] Make a refresh button on each service
-- [ ] Make a delete button on each service
+- [x] Make a refresh button on each service
+- [x] Make a delete button on each service
   - [ ] Make a deletion event
   - [ ] Make a deletion flow
+- [ ] Make a deactivate button
+  - [ ] Make a deactivation event
+  - [ ] Make a deactivation flow
 - [ ] Register a service with a GitHub action
   - [ ] Test key
   - [ ] Test action

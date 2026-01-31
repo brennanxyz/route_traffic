@@ -26,6 +26,7 @@ pub fn list(
                             <th>URL</th>
                             <th>Active</th>
                             <th>Status</th>
+                            <th style=\"display:flex; justify-content:center;\">Actions</th>
                         </tr>
                         {}",
                         dbl.iter()
@@ -39,6 +40,21 @@ pub fn list(
                                 <td>{}</td>
                                 <td>{}</td>
                                 <td id=\"service-{}-status\" class=\"{}-chip\">{}</td>
+                                <td style=\"display:flex; justify-content: center;\">
+                                    <span
+                                        style=\"cursor:pointer;\"
+                                        hx-get=\"/api/service/{}/deploy\"
+                                    >
+                                        &#127744;
+                                    </span>
+                                    <span
+                                        style=\"cursor:pointer;\"
+                                        hx-get=\"/api/service/{}/delete\"
+                                        hx-confirm=\"Are you sure you want to delete {}?\"
+                                    >
+                                        &#128163;
+                                    </span>
+                                </td>
                             </tr>
                         ",
                                     dbe.id,
@@ -54,7 +70,10 @@ pub fn list(
                                     match dbe.is_running(&dkl) {
                                         true => ServiceStatus::Running.to_string(),
                                         false => ServiceStatus::Inactive.to_string(),
-                                    }
+                                    },
+                                    dbe.id,
+                                    dbe.id,
+                                    dbe.name,
                                 )
                             })
                             .collect::<String>(),
