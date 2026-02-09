@@ -673,4 +673,31 @@ impl Service {
             }
         }
     }
+
+    pub async fn deactivate_service(
+        config: Config,
+        service: Result<Service, DBError>,
+        br: broadcast::Sender<ServiceEvent>,
+    ) -> Result<(), ServiceError> {
+        event!(Level::INFO, "Deleting service...");
+
+        match service {
+            Ok(serv) => {
+                serv.stop(config.clone(), &br)?;
+
+                let _ = br.send(ServiceEvent::AllStatus);
+
+                Ok(())
+            }
+            Err(e) => {
+                event!(
+                    Level::ERROR,
+                    "Service not successfully pulled from database | {}",
+                    e
+                );
+                let _ = br.send(ServiceEvent::UnknownEvent { msg: e.to_string() });
+                Err(ServiceError::Delete)
+            }
+        }
+    }
 }

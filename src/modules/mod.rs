@@ -93,8 +93,12 @@ impl ServiceHTML {
             .map(|ht| {
                 format!(
                     "
-                <{} id=\"{}\" hx-swap-oob=\"true\" {}>{}</{}>        
+                {}<{} id=\"{}\" hx-swap-oob=\"true\" {}>{}</{}>{}
             ",
+                    match ht.element.as_str() {
+                        "td" => "<tr>".to_string(),
+                        _ => "".to_string(),
+                    },
                     ht.element,
                     ht.id,
                     match &ht.class {
@@ -102,7 +106,11 @@ impl ServiceHTML {
                         None => "".to_string(),
                     },
                     ht.html_content,
-                    ht.element
+                    ht.element,
+                    match ht.element.as_str() {
+                        "td" => "</tr>".to_string(),
+                        _ => "".to_string(),
+                    },
                 )
             })
             .collect();

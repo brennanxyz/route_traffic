@@ -40,9 +40,9 @@ selecting the appropriate values).
 - [x] Make a delete button on each service
   - [x] Make a deletion event
   - [x] Make a deletion flow
-- [ ] Make a deactivate button
-  - [ ] Make a deactivation event
-  - [ ] Make a deactivation flow
+- [x] Make a deactivate button
+  - [x] Make a deactivation event
+  - [x] Make a deactivation flow
 - [ ] Register a service with a GitHub action
   - [ ] Test key
   - [ ] Test action

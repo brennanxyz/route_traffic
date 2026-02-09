@@ -39,7 +39,7 @@ pub fn list(
                                 <td>{}</td>
                                 <td>{}</td>
                                 <td>{}</td>
-                                <td id=\"service-{}-status\" class=\"{}-chip\">{}</td>
+                                <td><div id=\"service-{}-status\" class=\"{}-chip\">{}</div></td>
                                 <td style=\"display:flex; justify-content: center;\">
                                     <span
                                         style=\"cursor:pointer;\"
@@ -47,6 +47,15 @@ pub fn list(
                                     >
                                         &#127744;
                                     </span>
+                                    &nbsp;
+                                    <span
+                                        style=\"cursor:pointer;\"
+                                        hx-get=\"/api/service/{}/deactivate\"
+                                        hx-confirm=\"Are you sure you want to deactivate {}?\"
+                                    >
+                                        &#8631;
+                                    </span>
+                                    &nbsp;
                                     <span
                                         style=\"cursor:pointer;\"
                                         hx-delete=\"/api/service/{}\"
@@ -74,6 +83,8 @@ pub fn list(
                                     dbe.id,
                                     dbe.id,
                                     dbe.name,
+                                    dbe.id,
+                                    dbe.name,
                                 )
                             })
                             .collect::<String>(),
@@ -96,6 +107,7 @@ pub fn list(
                             <th>URL</th>
                             <th>Active</th>
                             <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                         {}
                         <tr><td colspan=\"6\" class=\"error-chip\">{}</td></tr>",
@@ -109,7 +121,31 @@ pub fn list(
                                 <td>{}</td>
                                 <td>{}</td>
                                 <td>{}</td>
-                                <td id=\"service-{}-status\" class=\"unknown-chip\">{}</td>
+                                <td><div id=\"service-{}-status\" class=\"unknown-chip\">{}</div></td>
+                                <td style=\"display:flex; justify-content: center;\">
+                                    <span
+                                        style=\"cursor:pointer;\"
+                                        hx-get=\"/api/service/{}/deploy\"
+                                    >
+                                        &#127744;
+                                    </span>
+                                    &nbsp;
+                                    <span
+                                        style=\"cursor:pointer;\"
+                                        hx-get=\"/api/service/{}/deactivate\"
+                                        hx-confirm=\"Are you sure you want to deactivate {}?\"
+                                    >
+                                        &#8631;
+                                    </span>
+                                    &nbsp;
+                                    <span
+                                        style=\"cursor:pointer;\"
+                                        hx-delete=\"/api/service/{}\"
+                                        hx-confirm=\"Are you sure you want to delete {}?\"
+                                    >
+                                        &#128163;
+                                    </span>
+                                </td>
                             </tr>
                         ",
                                     dbe.id,
@@ -119,6 +155,11 @@ pub fn list(
                                     dbe.active,
                                     dbe.id,
                                     ServiceStatus::Unknown.to_string(),
+                                    dbe.id,
+                                    dbe.id,
+                                    dbe.name,
+                                    dbe.id,
+                                    dbe.name,
                                 )
                             })
                             .collect::<String>(),

@@ -4,7 +4,7 @@ mod routes;
 
 use modules::{AppState, Config, ServiceBroadcast};
 use routes::{
-    add_new_service, all_status_request, app, delete_service, deploy_service,
+    add_new_service, all_status_request, app, deactivate_service, delete_service, deploy_service,
     edit_existing_service, edit_service_form, live_services, new_service_form, status,
 };
 
@@ -80,6 +80,7 @@ async fn main() {
         .route("/api/service", post(add_new_service))
         .route("/api/service/{id}", put(edit_existing_service))
         .route("/api/service/{id}/deploy", get(deploy_service))
+        .route("/api/service/{id}/deactivate", get(deactivate_service))
         .route("/api/service/{id}", delete(delete_service))
         .route("/api/all_status", get(all_status_request))
         .with_state(app_state);
